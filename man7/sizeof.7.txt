@@ -29,13 +29,13 @@ EXAMPLES
      When applied to a simple variable or data type, sizeof returns the storage
      size of the data type of the object:
 
-	   Object or type		      Result (ILP32)	      Result (LLP64)
-	   sizeof(char)			      1			      1
-	   sizeof(int)			      4			      4
-	   sizeof(long)			      4			      8
-	   sizeof(float)		      4			      4
-	   sizeof(double)		      8			      8
-	   sizeof(char *)		      4			      8
+	   Object or type	      Result (ILP32)	    Result (LLP64)
+	   sizeof(char)		      1			    1
+	   sizeof(int)		      4			    4
+	   sizeof(long)		      4			    8
+	   sizeof(float)	      4			    4
+	   sizeof(double)	      8			    8
+	   sizeof(char *)	      4			    8
 
      For initialized data or uninitialized arrays of a fixed size known at
      compile time, sizeof will return the correct storage size:
@@ -45,11 +45,11 @@ EXAMPLES
 	   char buf2[1024];
 	   char buf3[1024] = { 'a', 'b', 'c' };
 
-	   Object or type		      Result
-	   sizeof(DATA)			      11
-	   sizeof(buf1)			      4
-	   sizeof(buf2)			      1024
-	   sizeof(buf23			      1024
+	   Object or type	      Result
+	   sizeof(DATA)		      11
+	   sizeof(buf1)		      4
+	   sizeof(buf2)		      1024
+	   sizeof(buf23		      1024
 
      The examples above are the same for ILP32 and LLP64 platforms, as they are
      based on character units.
@@ -80,11 +80,11 @@ EXAMPLES
 		   struct s3 c;
 	   }
 
-	   Object or type		      Result (ILP32)	      Result (LLP64)
-	   sizeof(struct s1)		      1			      1
-	   sizeof(struct s2)		      8			      16
-	   sizeof(struct s3)		      12		      16
-	   sizeof(struct s4)		      24		      40
+	   Object or type	      Result (ILP32)	      Result (LLP64)
+	   sizeof(struct s1)	      1			      1
+	   sizeof(struct s2)	      8			      16
+	   sizeof(struct s3)	      12		      16
+	   sizeof(struct s4)	      24		      40
 
      When applied to a struct containing a flexible array member, sizeof returns
      the size of the struct without the array, although again possibly including
@@ -96,8 +96,8 @@ EXAMPLES
 		   char array[];
 	   }
 
-	   Object or type		      Result (ILP32)	      Result (LLP64)
-	   sizeof(struct flex)		      8			      16
+	   Object or type	      Result (ILP32)	      Result (LLP64)
+	   sizeof(struct flex)	      8			      16
 
      One of the more common uses of the sizeof operator is to determine the
      correct amount of memory to allocate:
