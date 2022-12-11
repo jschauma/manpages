@@ -1,0 +1,133 @@
+sizeof(7)		Miscellaneous Information Manual	       sizeof(7)
+
+NAME
+     sizeof operator  yield the storage size of the given operand
+
+SYNTAX
+     sizeof (type)
+     sizeof expression
+
+DESCRIPTION
+     The size of primitive data types in C may differ across hardware platforms
+     and implementations.  It may be necessary or useful for a program to be
+     able to determine at runtime the storage size of a data type or object.
+
+     The unary sizeof operator yields the storage size of an expression or data
+     type in char sized units.	As a result, 'sizeof(char)' is always guaranteed
+     to be 1.  (The number of bits per char is given by the CHAR_BITS definition
+     in the limits.h header.)
+
+EXAMPLES
+     The following example illustrate the possible results of calling sizeof on
+     an LP64 system:
+
+     When applied to a simple variable or data type, sizeof returns the storage
+     size of the data type of the object:
+
+	   Object or type		      Result
+	   sizeof(char)			      1
+	   sizeof(int)			      4
+	   sizeof(float)		      4
+	   sizeof(double)		      8
+	   sizeof(char *)		      8
+
+     For initialized data or uninitialized arrays of a fixed size known at
+     compile time, sizeof will return the correct storage size:
+
+	   #define DATA "1234567890"
+	   char buf1[] = "abc";
+	   char buf2[1024];
+	   char buf3[1024] = { 'a', 'b', 'c' };
+
+	   Object or type		      Result
+	   sizeof(DATA)			      11
+	   sizeof(buf1)			      4
+	   sizeof(buf2)			      1024
+	   sizeof(buf23			      1024
+
+     When applied to a struct or union, sizeof returns the total number of units
+     in the object, including any internal or trailing padding used to align the
+     object in memory.	This result may thus be larger than if the storage size
+     of each individual member had been added:
+
+	   struct s1 {
+		   char c;
+	   }
+
+	   struct s2 {
+		   char *s;
+		   int i;
+	   }
+
+	   struct s3 {
+		   char *s;
+		   int i;
+		   int j;
+	   }
+
+	   struct s4 {
+		   struct s1 a;
+		   struct s2 b;
+		   struct s3 c;
+	   }
+
+	   Object or type		      Result
+	   sizeof(struct s1)		      1
+	   sizeof(struct s2)		      16
+	   sizeof(struct s3)		      16
+	   sizeof(struct s4)		      40
+
+     When applied to a struct containing a flexible array member, sizeof returns
+     the size of the struct without the array, although again possibly including
+     any padding the compiler deemed appropriate:
+
+	   struct flex {
+		   char c;
+		   char b;
+		   char array[];
+	   }
+
+	   Object or type		      Result
+	   sizeof(struct flex)		      2
+
+     One of the more common uses of the sizeof operator is to determine the
+     correct amount of memory to allocate:
+
+	   int *nums = calloc(512, sizeof(int));
+
+     The sizeof operator can be used to calculate the number of elements in an
+     array by dividing the size of the array by the size of one of its elements:
+
+	   int nums[] = { 1, 2, 3, 4, 5 };
+	   const int howmany = sizeof(nums) / sizeof(nums[0]);
+
+RESULT
+     The result of the sizeof operator is an unsigned integer type, defined in
+     the stddef.h header as a size_t.
+
+NOTES
+     It is a common mistake to apply sizeof to a dynamically allocated array:
+
+	   char *buf;
+	   if ((buf = malloc(BUFSIZ)) == NULL) {
+		   perror("malloc");
+	   }
+	   /* Warning: wrong! */
+	   (void)strncat(buf, input, sizeof(buf) - 1);
+
+     In that case, the operator will return the storage size of the pointer
+     ('sizeof(char *)'), not the allocated memory!
+
+     sizeof determines the size of the result of the expression given, but does
+     not evaluate the expression:
+
+	   int a = 42;
+	   printf("%ld - %d\n", sizeof(a = 10), a); /* Result: "4 - 42" */
+
+     Since it is evaluated by the compiler and not the preprocessor, the sizeof
+     operator cannot be used in a preprocessor expression.
+
+AUTHORS
+     This manual page was written by Jan Schaumann <jschauma@netmeister.org>.
+
+NetBSD 9.3			December 10, 2022		      NetBSD 9.3
