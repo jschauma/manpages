@@ -18,18 +18,24 @@ DESCRIPTION
      in the limits.h header.)
 
 EXAMPLES
-     The following example illustrate the possible results of calling sizeof on
-     an LP64 system:
+     Different platforms may use different data models.	 For example, systems on
+     which integers, longs, and pointers are using 32 bits (e.g., i386) are
+     referred to as using the "ILP32" data model, systems using e.g., 64 bit
+     longs and pointers (e.g., amd64 / x86_64) as the "LLP64" data model.
+
+     The following examples illustrate the possible results of calling sizeof on
+     an ILP32 vs. an LP64 system:
 
      When applied to a simple variable or data type, sizeof returns the storage
      size of the data type of the object:
 
-	   Object or type		      Result
-	   sizeof(char)			      1
-	   sizeof(int)			      4
-	   sizeof(float)		      4
-	   sizeof(double)		      8
-	   sizeof(char *)		      8
+	   Object or type		      Result (ILP32)	      Result (LLP64)
+	   sizeof(char)			      1			      1
+	   sizeof(int)			      4			      4
+	   sizeof(long)			      4			      8
+	   sizeof(float)		      4			      4
+	   sizeof(double)		      8			      8
+	   sizeof(char *)		      4			      8
 
      For initialized data or uninitialized arrays of a fixed size known at
      compile time, sizeof will return the correct storage size:
@@ -44,6 +50,9 @@ EXAMPLES
 	   sizeof(buf1)			      4
 	   sizeof(buf2)			      1024
 	   sizeof(buf23			      1024
+
+     The examples above are the same for ILP32 and LLP64 platforms, as they are
+     based on character units.
 
      When applied to a struct or union, sizeof returns the total number of units
      in the object, including any internal or trailing padding used to align the
@@ -71,11 +80,11 @@ EXAMPLES
 		   struct s3 c;
 	   }
 
-	   Object or type		      Result
-	   sizeof(struct s1)		      1
-	   sizeof(struct s2)		      16
-	   sizeof(struct s3)		      16
-	   sizeof(struct s4)		      40
+	   Object or type		      Result (ILP32)	      Result (LLP64)
+	   sizeof(struct s1)		      1			      1
+	   sizeof(struct s2)		      8			      16
+	   sizeof(struct s3)		      12		      16
+	   sizeof(struct s4)		      24		      40
 
      When applied to a struct containing a flexible array member, sizeof returns
      the size of the struct without the array, although again possibly including
@@ -83,12 +92,12 @@ EXAMPLES
 
 	   struct flex {
 		   char c;
-		   char b;
+		   long b;
 		   char array[];
 	   }
 
-	   Object or type		      Result
-	   sizeof(struct flex)		      2
+	   Object or type		      Result (ILP32)	      Result (LLP64)
+	   sizeof(struct flex)		      8			      16
 
      One of the more common uses of the sizeof operator is to determine the
      correct amount of memory to allocate:
@@ -127,7 +136,10 @@ NOTES
      Since it is evaluated by the compiler and not the preprocessor, the sizeof
      operator cannot be used in a preprocessor expression.
 
+SEE ALSO
+     arch(7), operator(7)
+
 AUTHORS
      This manual page was written by Jan Schaumann <jschauma@netmeister.org>.
 
-NetBSD 9.3			December 10, 2022		      NetBSD 9.3
+NetBSD 9.3			December 11, 2022		      NetBSD 9.3
