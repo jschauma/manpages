@@ -23,7 +23,7 @@
 .\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 .\" SUCH DAMAGE.
 .\"
-.Dd December 10, 2022
+.Dd December 11, 2022
 .Dt sizeof 7
 .Os
 .Sh NAME
@@ -55,28 +55,44 @@ definition in the
 .Dv limits.h
 header.)
 .Sh EXAMPLES
-The following example illustrate the possible results
+Different platforms may use different data models.
+For example, systems on which integers, longs, and
+pointers are using 32 bits (e.g., i386) are referred
+to as using the "ILP32" data model, systems using
+e.g., 64 bit longs and pointers (e.g., amd64 / x86_64)
+as the "LLP64" data model.
+.Pp
+The following examples illustrate the possible results
 of calling
 .Nm
-on an LP64 system:
+on an ILP32 vs. an LP64 system:
 .Pp
 When applied to a simple variable or data type,
 .Nm
 returns the storage size of the data type of the
 object:
 .Bl -column -offset indent \
-    ".Li sizeof(struct flex)        " ".Sy Result"
+    ".Li sizeof(struct flex)        " ".Sy Result (ILP32)  " ".Sy Result (LLP64)"
 .It Sy Object or type \
- Ta Sy Result
+ Ta Sy Result (ILP32) \
+ Ta Sy Result (LLP64)
 .It Li sizeof(char) \
+ Ta 1 \
  Ta 1
 .It Li sizeof(int) \
+ Ta 4 \
  Ta 4
+.It Li sizeof(long) \
+ Ta 4 \
+ Ta 8
 .It Li sizeof(float) \
+ Ta 4 \
  Ta 4
 .It Li sizeof(double) \
+ Ta 8 \
  Ta 8
 .It Li sizeof(char *) \
+ Ta 4 \
  Ta 8
 .El
 .Pp
@@ -103,6 +119,9 @@ char buf3[1024] = { 'a', 'b', 'c' };
 .It Li sizeof(buf23 \
  Ta 1024
 .El
+.Pp
+The examples above are the same for ILP32 and LLP64
+platforms, as they are based on character units.
 .Pp
 When applied to a struct or union,
 .Nm
@@ -134,16 +153,21 @@ struct s4 {
 }
 .Ed
 .Bl -column -offset indent \
-    ".Li sizeof(struct flex)        " ".Sy Result"
+    ".Li sizeof(struct flex)        " ".Sy Result (ILP32)  " ".Sy Result (LLP64)"
 .It Sy Object or type \
- Ta Sy Result
+ Ta Sy Result (ILP32) \
+ Ta Sy Result (LLP64)
 .It Li sizeof(struct s1) \
+ Ta 1 \
  Ta 1
 .It Li sizeof(struct s2) \
+ Ta 8 \
  Ta 16
 .It Li sizeof(struct s3) \
+ Ta 12 \
  Ta 16
 .It Li sizeof(struct s4) \
+ Ta 24 \
  Ta 40
 .El
 .Pp
@@ -157,16 +181,18 @@ padding the compiler deemed appropriate:
 .Bd -literal -offset indent
 struct flex {
         char c;
-        char b;
+        long b;
         char array[];
 }
 .Ed
 .Bl -column -offset indent \
-    ".Li sizeof(struct flex)        " ".Sy Result"
+    ".Li sizeof(struct flex)        " ".Sy Result (ILP32)  " ".Sy Result (LLP64)"
 .It Sy Object or type \
- Ta Sy Result
+ Ta Sy Result (ILP32) \
+ Ta Sy Result (LLP64)
 .It Li sizeof(struct flex) \
- Ta 2
+ Ta 8 \
+ Ta 16
 .El
 .Pp
 One of the more common uses of the
@@ -225,6 +251,9 @@ Since it is evaluated by the compiler and not the
 preprocessor, the
 .Nm
 operator cannot be used in a preprocessor expression.
+.Sh SEE ALSO
+.Xr arch 7 ,
+.Xr operator 7
 .Sh AUTHORS
 This manual page was written by
 .An Jan Schaumann Aq Mt jschauma@netmeister.org .
