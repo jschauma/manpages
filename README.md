@@ -1,5 +1,5 @@
-Miscellaneou Manpages
-=====================
+Miscellaneous Manpages
+======================
 
 This repository contains miscellaneous manual pages
 that I've found useful to reference, but that have not
