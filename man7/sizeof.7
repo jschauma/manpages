@@ -151,9 +151,15 @@ struct s3 {
 }
 
 struct s4 {
+	int i;
+	uint64_t i64;
+};
+
+struct s5 {
         struct s1 a;
         struct s2 b;
         struct s3 c;
+        struct s4 d;
 }
 .Ed
 .Bl -column -offset indent \
@@ -171,8 +177,11 @@ struct s4 {
  Ta 12 \
  Ta 16
 .It Li sizeof(struct s4) \
- Ta 24 \
- Ta 40
+ Ta 12 \
+ Ta 16
+.It Li sizeof(struct s5) \
+ Ta 36  \
+ Ta 56
 .El
 .Pp
 When applied to a struct containing a flexible array
