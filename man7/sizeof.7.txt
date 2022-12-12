@@ -14,8 +14,9 @@ DESCRIPTION
 
      The unary sizeof operator yields the storage size of an expression or data
      type in char sized units.	As a result, 'sizeof(char)' is always guaranteed
-     to be 1.  (The number of bits per char is given by the CHAR_BITS definition
-     in the limits.h header.)
+     to be 1.  (The number of bits per char is given by the CHAR_BIT definition
+     in the limits.h header; many systems also provide the "number of bits per
+     byte" definition as NBBY in the sys/param.h header.)
 
 EXAMPLES
      Different platforms may use different data models.	 For example, systems on
@@ -110,6 +111,9 @@ EXAMPLES
 	   int nums[] = { 1, 2, 3, 4, 5 };
 	   const int howmany = sizeof(nums) / sizeof(nums[0]);
 
+     Many systems provide this shortcut as the macro ntimes() via the
+     sys/param.h header file.
+
 RESULT
      The result of the sizeof operator is an unsigned integer type, defined in
      the stddef.h header as a size_t.
@@ -139,7 +143,13 @@ NOTES
 SEE ALSO
      arch(7), operator(7)
 
+STANDARDS
+     The sizeof operator conforms to ANSI X3.159-1989 (ANSIC89).
+
+     Handling of flexible array members in structures conforms to ISO/IEC
+     9899:1999 (ISOC99).
+
 AUTHORS
      This manual page was written by Jan Schaumann <jschauma@netmeister.org>.
 
-NetBSD 9.3			December 11, 2022		      NetBSD 9.3
+NetBSD 9.3			December 12, 2022		      NetBSD 9.3
