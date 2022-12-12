@@ -23,7 +23,7 @@
 .\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 .\" SUCH DAMAGE.
 .\"
-.Dd December 11, 2022
+.Dd December 12, 2022
 .Dt sizeof 7
 .Os
 .Sh NAME
@@ -53,6 +53,11 @@ is given by the
 .Dv CHAR_BIT
 definition in the
 .Dv limits.h
+header; many systems also provide the "number of bits
+per byte" definition as
+.Dv NBBY
+in the
+.Dv sys/param.h
 header.)
 .Sh EXAMPLES
 Different platforms may use different data models.
@@ -212,6 +217,12 @@ by the size of one of its elements:
 int nums[] = { 1, 2, 3, 4, 5 };
 const int howmany = sizeof(nums) / sizeof(nums[0]);
 .Ed
+.Pp
+Many systems provide this shortcut as the macro
+.Dv ntimes()
+via the
+.Dv sys/param.h
+header file.
 .Sh RESULT
 The result of the
 .Nm
@@ -254,6 +265,15 @@ operator cannot be used in a preprocessor expression.
 .Sh SEE ALSO
 .Xr arch 7 ,
 .Xr operator 7
+.Sh STANDARDS
+The
+.Nm
+operator conforms to
+.St -ansiC .
+.Pp
+Handling of flexible array members in structures
+conforms to
+.St -isoC-99 .
 .Sh AUTHORS
 This manual page was written by
 .An Jan Schaumann Aq Mt jschauma@netmeister.org .
