@@ -60,7 +60,7 @@ For example, systems on which integers, longs, and
 pointers are using 32 bits (e.g., i386) are referred
 to as using the "ILP32" data model, systems using
 64 bit longs and pointers (e.g., amd64 / x86_64)
-as the "LLP64" data model.
+as the "LP64" data model.
 .Pp
 The following examples illustrate the possible results
 of calling
@@ -72,10 +72,10 @@ When applied to a simple variable or data type,
 returns the storage size of the data type of the
 object:
 .Bl -column -offset indent \
-    ".Li sizeof(struct flex)" ".Sy Result (ILP32)" ".Sy Result (LLP64)"
+    ".Li sizeof(struct flex)" ".Sy Result (ILP32)" ".Sy Result (LP64)"
 .It Sy Object or type \
  Ta Sy Result (ILP32) \
- Ta Sy Result (LLP64)
+ Ta Sy Result (LP64)
 .It Li sizeof(char) \
  Ta 1 \
  Ta 1
@@ -120,7 +120,7 @@ char buf3[1024] = { 'a', 'b', 'c' };
  Ta 1024
 .El
 .Pp
-The examples above are the same for ILP32 and LLP64
+The examples above are the same for ILP32 and LP64
 platforms, as they are based on character units.
 .Pp
 When applied to a struct or union,
@@ -153,10 +153,10 @@ struct s4 {
 }
 .Ed
 .Bl -column -offset indent \
-    ".Li sizeof(struct flex)" ".Sy Result (ILP32)  " ".Sy Result (LLP64)"
+    ".Li sizeof(struct flex)" ".Sy Result (ILP32)  " ".Sy Result (LP64)"
 .It Sy Object or type \
  Ta Sy Result (ILP32) \
- Ta Sy Result (LLP64)
+ Ta Sy Result (LP64)
 .It Li sizeof(struct s1) \
  Ta 1 \
  Ta 1
@@ -186,10 +186,10 @@ struct flex {
 }
 .Ed
 .Bl -column -offset indent \
-    ".Li sizeof(struct flex)" ".Sy Result (ILP32)  " ".Sy Result (LLP64)"
+    ".Li sizeof(struct flex)" ".Sy Result (ILP32)  " ".Sy Result (LP64)"
 .It Sy Object or type \
  Ta Sy Result (ILP32) \
- Ta Sy Result (LLP64)
+ Ta Sy Result (LP64)
 .It Li sizeof(struct flex) \
  Ta 8 \
  Ta 16
