@@ -49,7 +49,7 @@ EXAMPLES
 	   sizeof(DATA)		      11
 	   sizeof(buf1)		      4
 	   sizeof(buf2)		      1024
-	   sizeof(buf23		      1024
+	   sizeof(buf3)		      1024
 
      The examples above are the same for ILP32 and LP64 platforms, as they are
      based on character units.

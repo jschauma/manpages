@@ -116,7 +116,7 @@ char buf3[1024] = { 'a', 'b', 'c' };
  Ta 4
 .It Li sizeof(buf2) \
  Ta 1024
-.It Li sizeof(buf23 \
+.It Li sizeof(buf3) \
  Ta 1024
 .El
 .Pp
@@ -239,9 +239,9 @@ allocated memory!
 .Nm
 determines the
 .Ev size
-of the result of the expression given, but does
-.Em not evaluate
-the expression:
+of the result of the expression given, but
+.Em does not
+evaluate the expression:
 .Bd -literal -offset indent
 int a = 42;
 printf("%ld - %d\\n", sizeof(a = 10), a); /* Result: "4 - 42" */
