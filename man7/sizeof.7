@@ -56,9 +56,8 @@ object,
 yields that size in
 .Em char sized units .
 As a result,
-.Pf ' Vt sizeof(char) Ns '
-is always guaranteed to be
-1.
+.Ql sizeof(char)
+is always guaranteed to be 1.
 (The number of bits per
 .Vt char
 is given by the
@@ -79,8 +78,7 @@ on an ILP32 vs. an LP64 system:
 .Pp
 When applied to a simple variable or data type,
 .Nm
-returns the storage size of the data type of the
-object:
+returns the storage size of the data type of the object:
 .Bl -column -offset indent \
     ".Li sizeof(struct flex)" ".Sy Result (ILP32)" ".Sy Result (LP64)"
 .It Sy Object or type \
@@ -143,18 +141,18 @@ size of each individual member had been added:
 .Bd -literal -offset indent
 struct s1 {
         char c;
-}
+};
 
 struct s2 {
         char *s;
         int i;
-}
+};
 
 struct s3 {
         char *s;
         int i;
         int j;
-}
+};
 
 struct s4 {
 	int i;
@@ -166,7 +164,7 @@ struct s5 {
         struct s2 b;
         struct s3 c;
         struct s4 d;
-}
+};
 .Ed
 .Bl -column -offset indent \
     ".Li sizeof(struct flex)" ".Sy Result (ILP32)  " ".Sy Result (LP64)"
@@ -235,7 +233,7 @@ const int howmany = sizeof(nums) / sizeof(nums[0]);
 Many systems provide this shortcut as the macro
 .Dv ntimes()
 via the
-.Dv sys/param.h
+.In sys/param.h
 header file.
 .Sh RESULT
 The result of the
@@ -258,9 +256,9 @@ if ((buf = malloc(BUFSIZ)) == NULL) {
 .Ed
 .Pp
 In that case, the operator will return the storage
-size of the pointer
-.Pf (' Vt sizeof(char *) Ns '),
-not the
+size of the pointer (
+.Ql sizeof(char *)
+), not the
 allocated memory.
 .Pp
 .Nm
