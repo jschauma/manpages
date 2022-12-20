@@ -13,4 +13,4 @@ run `make install`.  `PREFIX` defaults to
 Available Manual Pages
 ----------------------
 
-* [sizeof(7)](./man7/sizeof.7.txt) -- sizeof operator; yield the storage size of the given operand
+* [sizeof(7)](./man7/sizeof.7.txt) -- sizeof operator; yield the storage size of the given operand ([added to FreeBSD](https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=268310))
