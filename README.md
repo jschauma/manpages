@@ -14,3 +14,4 @@ Available Manual Pages
 ----------------------
 
 * [sizeof(7)](./man7/sizeof.7.txt) -- sizeof operator; yield the storage size of the given operand ([added to FreeBSD](https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=268310))
+* [httpstatus(7)](https://github.com/jschauma/httpstatus) -- httpstatus; descriptions of all common HTTP status codes
